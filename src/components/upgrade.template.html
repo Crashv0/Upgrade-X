@@ -6,18 +6,22 @@
         pattern="[0-9]*"
         type="text"
         class="form-control col-lg-3"
-        v-model="quantityEdit"
-        @input="onInput"
-        @keyup.enter="upgrade"
+        :value="box.text"
+        @input="box.onInput($event)"
+        @keyup.enter="box.upgrade()"
       />
       <button
         type="button"
         id="upgrade-x-btn"
         class="btn btn-alt-warning mt-3 mt-sm-0 ml-sm-3 col-lg-3"
-        data-dismiss="modal"
+        :disabled="!box.canUpgrade"
+        @click="box.upgrade()"
       >
-        {{ isDowngrade ? 'Downgrade' : 'Upgrade' }} {{ quantity ?? 'x' }}
+        {{ box.label }}
       </button>
     </div>
+    <small v-if="box.maxHint" class="d-block text-center text-danger mt-1"
+      >{{ box.maxHint }}</small
+    >
   </div></template
 >
